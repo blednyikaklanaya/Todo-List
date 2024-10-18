@@ -9,7 +9,10 @@ import TodoForm from './components/TodoForm/TodoForm';
 
 export default function App() {
 
-  const [todos, setNewTodo] = useState(JSON.parse(localStorage.getItem("userTodos")));
+  const [todos, setNewTodo] = useState(() => {
+    const savesTodos = localStorage.getItem("userTodos");
+    return savesTodos ? JSON.parse(savesTodos) : [];
+  });
   const [countCompletedTodo, setCountCompletedTodo] = useState(0);
 
   useEffect(() => {
