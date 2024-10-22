@@ -6,7 +6,7 @@ import "./TodoList.css";
 import TodoItem from "../TodoItem/TodoItem";
 //components
 
-export default function TodoList({ todos, onRemoveTodo, onThroughTodo }) {
+export default function TodoList({ todos, setEditTodo, inputChange, onRemoveTodo, onThroughTodo }) {
     return (
         <>
 
@@ -17,7 +17,10 @@ export default function TodoList({ todos, onRemoveTodo, onThroughTodo }) {
                         <TodoItem
                             key={todos.id}
                             text={todos.text}
+                            todos={todos}
                             todoCompleted={todos.completed}
+                            setEditTodo={() => (setEditTodo(todos.id))}
+                            inputChange={inputChange}
                             removeTodo={() => (onRemoveTodo(todos.id))}
                             throughTodo={() => (onThroughTodo(todos.id, todos.completed))} /> //give remove function a todoItem
                     ))}

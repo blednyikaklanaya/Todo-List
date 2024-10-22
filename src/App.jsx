@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import './App.css'
 //style
@@ -18,11 +17,28 @@ export default function App() {
   useEffect(() => {
     setCountCompletedTodo(todos.filter((todo) => todo.completed).length)// return completed todo and set this number.
     localStorage.setItem("userTodos", JSON.stringify(todos));
+    console.log(todos);
   }, [todos]); //check edits complected todos. Also set todos for localStorage
 
   const addNewTodo = (newTodo) => {
-    setNewTodo([...todos, { id: Date.now(), text: newTodo, completed: false }])// add all todo and new todo
+    setNewTodo([...todos, { id: Date.now(), text: newTodo, completed: false, isEdit: false }])// add all todo and new todo
   }
+
+  const handleSetEditTodo = (id) => {
+    setNewTodo(
+      todos.map((todo) =>
+        (todo.id == id ? { ...todo, isEdit: !todo.isEdit } : todo)
+      )
+    );
+  }; //set editing status for todo
+
+  const handleInputChange = (e, id) => {
+    setNewTodo(
+      todos.map((todo) => 
+        (todo.id == id ? {...todo, text: e} : todo)
+      )
+    );
+  } //set input text for todo
 
   const onRemoveTodo = (id) => {
     setNewTodo(todos.filter((todo) => todo.id !== id));
@@ -40,7 +56,7 @@ export default function App() {
     <div
       className="container">
       <TodoForm onAddTodo={addNewTodo} />
-      <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onThroughTodo={onThroughTodo} />
+      <TodoList todos={todos} setEditTodo={handleSetEditTodo} inputChange={handleInputChange} onRemoveTodo={onRemoveTodo} onThroughTodo={onThroughTodo} />
       <div
         className='counter-todo'>
         <span

@@ -12,7 +12,7 @@
 }
 
 .todo-item {
-    width: 200px;
+    min-width: 200px;
     background-color: #edf7ffbd;
     border-radius: 13px;
     text-align: center;
@@ -23,7 +23,7 @@
     transition: 0.6s;
 }
 
-.todo-item__button {
+.todo-item__button, .todo-item__edit-button {
     background-color: transparent;
     border-radius: 20px;
     border-color: transparent;
