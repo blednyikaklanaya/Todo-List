@@ -47,7 +47,7 @@ export default function App() {
   const onThroughTodo = (id) => {
     setNewTodo(
       todos.map((todo) =>
-        (todo.id === id ? { ...todo, completed: !todo.completed } : todo)
+        (todo.id === id && todo.isEdit !== true ? { ...todo, completed: !todo.completed } : todo)
       )
     );
   };// function give through style/class for todo.
@@ -63,11 +63,13 @@ export default function App() {
           className='count-end-todo'>
           <i className='bi bi-calendar-check-fill'></i>
           {countCompletedTodo}
+          <span> : completed</span>
         </span>
         <span
           className='count-total-todo'>
           <i className="bi bi-list-task"></i>
           {todos.length}
+          <span> : total</span>
         </span>
       </div>
     </div>
