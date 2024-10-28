@@ -1,0 +1,18 @@
+.button-open-history {
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.todo-history {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.old-todo {
+    text-align: center;
+    text-decoration: line-through;
+}
