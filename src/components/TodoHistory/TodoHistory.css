@@ -16,3 +16,36 @@
     text-align: center;
     text-decoration: line-through;
 }
+
+.container__history-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-color: black;
+    border-radius: 20px;
+    border: solid 1.5px;
+    min-width: 200px;
+    min-height: 100px;
+}
+
+.clear-history-button {
+    border: none;
+    background-color: transparent;
+}
+
+.container__history-list {
+    animation: container__history-list--animation 1s;
+}
+
+@keyframes container__history-list--animation {
+    0% {
+        opacity: 0.2;
+        margin-left: 50px;
+    }
+
+    100% {
+
+    }
+}

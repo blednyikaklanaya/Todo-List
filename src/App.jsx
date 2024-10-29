@@ -60,6 +60,10 @@ export default function App() {
     setNewTodo(todos.filter((todo) => todo.id !== id));
   } //remove todo
 
+  const onClearHistoryTodo = () => {
+    setOldTodos([]);
+  }
+
   const onThroughTodo = (id) => {
     setNewTodo(
       todos.map((todo) =>
@@ -88,7 +92,7 @@ export default function App() {
           <span> : total</span>
         </span>
       </div>
-      <TodoHistory historyTodoData={oldTodos} />
+      <TodoHistory onClearHistory={onClearHistoryTodo} historyTodoData={oldTodos} />
     </div>
   )
 
