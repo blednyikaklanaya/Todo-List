@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+
+import './App.css';
 //style
 
 import TodoList from './components/TodoList/TodoList';
 import TodoForm from './components/TodoForm/TodoForm';
 import TodoHistory from './components/TodoHistory/TodoHistory';
+import ChartTodo from './components/ChartTodo/ChartTodo';
 //components
 
 export default function App() {
@@ -16,21 +18,25 @@ export default function App() {
     return savesTodos ? JSON.parse(savesTodos) : [];
   });
 
-  const [countCompletedTodo, setCountCompletedTodo] = useState(0);
-
   const [oldTodos, setOldTodos] = useState(() => {
     const saveOldTodos = localStorage.getItem("userOldTodos");
     return saveOldTodos ? JSON.parse(saveOldTodos) : [];
   });
 
+  const [countCompletedTodo, setCountCompletedTodo] = useState(0);
+  const [countTotalTodos, setCountTotalTodos] = useState(todos.length);
+  const [countOldtodo, setCountOldTodo] = useState(oldTodos.length);
+
   useEffect(() => {
     setCountCompletedTodo(todos.filter((todo) => todo.completed).length)// return completed todo and set this number.
     localStorage.setItem("userTodos", JSON.stringify(todos));
+    setCountTotalTodos(todos.length);
     console.log(todos);
   }, [todos]); //check edits complected todos. Also set todos for localStorage
 
   useEffect(() => {
     localStorage.setItem("userOldTodos", JSON.stringify(oldTodos));
+    setCountOldTodo(oldTodos.length);
   }, [oldTodos])
 
   //functions
@@ -75,24 +81,13 @@ export default function App() {
   return (
     <div
       className="container">
-      <TodoForm onAddTodo={addNewTodo} />
-      <TodoList todos={todos} setEditTodo={handleSetEditTodo} inputChange={handleInputChange} onRemoveTodo={onRemoveTodo} onThroughTodo={onThroughTodo} />
-      <div
-        className='counter-todo'>
-        <span
-          className='count-end-todo'>
-          <i className='bi bi-calendar-check-fill'></i>
-          {countCompletedTodo}
-          <span> : completed</span>
-        </span>
-        <span
-          className='count-total-todo'>
-          <i className="bi bi-list-task"></i>
-          {todos.length}
-          <span> : total</span>
-        </span>
+      <div 
+        className="container-todo-component">
+        <TodoForm onAddTodo={addNewTodo} />
+        <TodoList todos={todos} setEditTodo={handleSetEditTodo} inputChange={handleInputChange} onRemoveTodo={onRemoveTodo} onThroughTodo={onThroughTodo} />
+        <TodoHistory onClearHistory={onClearHistoryTodo} historyTodoData={oldTodos} />
       </div>
-      <TodoHistory onClearHistory={onClearHistoryTodo} historyTodoData={oldTodos} />
+      <ChartTodo countCompletedTodo={countCompletedTodo} countTotalTodo={countTotalTodos} countOldTodo={countOldtodo} />
     </div>
   )
 
